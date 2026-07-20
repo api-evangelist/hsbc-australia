@@ -1,0 +1,25 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for HSBC Bank Australia CDR Product Reference Data
+  version: 1.0.0
+extends: openapi/hsbc-australia-cds-banking-products-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: hsbc-australia
+    x-apievangelist-surface: cdr-product-reference-data
+    x-apievangelist-public-baseurl: https://public.ob.hsbc.com.au/cds-au/v1
+    x-apievangelist-spec-provenance: DSB Consumer Data Standards (shared CDR Banking
+      API) - not an HSBC-proprietary contract
+    x-apievangelist-notes: HSBC Australia implements only the Products subset
+      (Get Products, Get Product Detail), unauthenticated and public. Version
+      negotiation via the x-v header; supported x-v values 4 and 5 (confirmed live).
+- target: $.paths['/banking/products'].get
+  update:
+    x-apievangelist-public: true
+    x-apievangelist-auth: none
+    x-apievangelist-confirmed-live: true
+- target: $.paths['/banking/products/{productId}'].get
+  update:
+    x-apievangelist-public: true
+    x-apievangelist-auth: none

@@ -1,0 +1,46 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/hsbc-australia-cds-banking-products-openapi.yml + DSB Consumer Data Standards
+note: |
+  Cross-cutting request/response semantics for the HSBC Australia CDR Product
+  Reference Data API, derived from the harvested CDS Banking OpenAPI and the
+  DSB Consumer Data Standards it implements.
+authentication:
+  public_surface: none (unauthenticated CDR Product Reference Data)
+  authenticated_surface: CDR FAPI (OpenID Connect + mTLS), ADR-only
+  ref: authentication/hsbc-australia-authentication.yml
+versioning:
+  style: header
+  request_header: x-v
+  min_request_header: x-min-v
+  response_header: x-v
+  ref: lifecycle/hsbc-australia-lifecycle.yml
+pagination:
+  style: page-number
+  params:
+    page: 1-based page number (PositiveInteger)
+    page-size: page size, default 25 (PositiveInteger)
+  response_fields:
+    meta: '{ totalRecords, totalPages }'
+    links: '{ self, first, prev, next, last }'
+idempotency:
+  supported: false
+  note: Public surface is read-only (GET Products / GET Product Detail); no
+    idempotency key contract applies.
+request_tracing:
+  header: x-fapi-interaction-id
+  note: Interaction id header is part of the CDR FAPI profile on the authenticated
+    surface; optional on the public PRD endpoints.
+error_envelope:
+  schema: ResponseErrorListV2
+  shape: '{ errors: [ { code, title, detail, meta } ] }'
+  code_format: urn:au-cds:error:<sub-type>:<Category>/<Code>
+  ref: errors/hsbc-australia-problem-types.yml
+rate_limiting:
+  signaling: none observed on the public PRD endpoints
+  note: The DSB Consumer Data Standards define traffic thresholds for the CDR
+    ecosystem; no rate-limit response headers are documented for the public
+    Product Reference Data endpoints.
+filtering:
+  effective: CURRENT | FUTURE | ALL (default CURRENT) on Get Products
+  updated-since: RFC3339 date-time filter on Get Products

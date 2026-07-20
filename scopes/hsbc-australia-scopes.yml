@@ -1,0 +1,39 @@
+generated: '2026-07-20'
+method: searched
+source: https://public.ob.hsbc.com.au/.well-known/openid-configuration
+docs: https://consumerdatastandardsaustralia.github.io/standards/#end-points
+note: |
+  Scopes are published live in the HSBC Australia CDR OpenID Connect discovery
+  document (scopes_supported). They govern the AUTHENTICATED consumer data
+  sharing surface, which is restricted to Accredited Data Recipients (ADRs)
+  under the CDR register - not the public unauthenticated Product Reference
+  Data endpoints, which require no scopes. Scope semantics follow the DSB
+  Consumer Data Standards (Australia).
+schemes:
+- name: CDR OpenID Connect (FAPI)
+  source: https://public.ob.hsbc.com.au/.well-known/openid-configuration
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://public.ob.hsbc.com.au/cds-au/v1/oauth2/authorize
+    tokenUrl: https://mtls.ob.hsbc.com.au/cds-au/v1/oauth2/token
+scopes:
+- scope: openid
+  description: OpenID Connect authentication (required).
+- scope: profile
+  description: CDR profile claims (name and related identity claims).
+- scope: bank:accounts.basic:read
+  description: Read basic account data - account name, type, and balance.
+- scope: bank:accounts.detail:read
+  description: Read detailed account data - account numbers and features.
+- scope: bank:transactions:read
+  description: Read account transactions.
+- scope: bank:payees:read
+  description: Read saved payees.
+- scope: bank:regular_payments:read
+  description: Read direct debits and scheduled/recurring payments.
+- scope: common:customer.basic:read
+  description: Read basic customer data - name and occupation.
+- scope: common:customer.detail:read
+  description: Read detailed customer data - contact details.
+- scope: cdr:registration
+  description: Dynamic client registration against the CDR register.

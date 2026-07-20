@@ -1,0 +1,25 @@
+generated: '2026-07-20'
+method: searched
+source: live probes of HSBC Australia CDR public host
+host: https://public.ob.hsbc.com.au
+documents:
+- path: /.well-known/openid-configuration
+  status: 200
+  file: hsbc-australia-openid-configuration.json
+  note: CDR/FAPI OpenID Connect discovery document for the HSBC Australia consumer
+    data sharing surface. Advertises PAR-required, mTLS-bound tokens, private_key_jwt,
+    PS256/ES256, JARM, PKCE S256, acr urn:cds.au:cdr:2 and :3, and the full CDR
+    banking scope set.
+- path: /.well-known/security.txt
+  status: 403
+- path: /.well-known/oauth-authorization-server
+  status: 403
+- path: /.well-known/api-catalog
+  status: 403
+- path: /.well-known/ai-plugin.json
+  status: 403
+other_hosts:
+- host: https://www.hsbc.com.au
+  documents:
+  - path: /.well-known/security.txt
+    status: 404

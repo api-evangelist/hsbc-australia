@@ -1,0 +1,79 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/hsbc-australia-cds-banking-products-openapi.yml (Products schemas)
+note: |
+  Entity-relationship graph for the HSBC Australia CDR Product Reference Data
+  domain - the only surface HSBC implements publicly. Derived from the CDS
+  Banking OpenAPI $ref graph rooted at BankingProductV6 / BankingProductDetailV7.
+identifiers:
+  product: productId (ASCIIString, primary identifier used by Get Product Detail)
+entities:
+- name: BankingProduct
+  schema: BankingProductV6
+  description: Product summary as returned in the Get Products list.
+  key: productId
+- name: BankingProductDetail
+  schema: BankingProductDetailV7
+  description: Full product detail (extends BankingProduct) from Get Product Detail.
+  key: productId
+relationships:
+- from: BankingProductDetail
+  to: BankingProduct
+  type: extends
+  via: allOf
+- from: BankingProduct
+  to: BankingProductCardArt
+  type: has_many
+  via: cardArt
+- from: BankingProduct
+  to: BankingProductAdditionalInformationV2
+  type: has_one
+  via: additionalInformation
+- from: BankingProductDetail
+  to: BankingProductBundle
+  type: has_many
+  via: bundles
+- from: BankingProductDetail
+  to: BankingProductFeatureV4
+  type: has_many
+  via: features
+- from: BankingProductDetail
+  to: BankingProductConstraintV3
+  type: has_many
+  via: constraints
+- from: BankingProductDetail
+  to: BankingProductEligibilityV2
+  type: has_many
+  via: eligibility
+- from: BankingProductDetail
+  to: BankingProductFeeV2
+  type: has_many
+  via: fees
+- from: BankingProductDetail
+  to: BankingProductDepositRateV2
+  type: has_many
+  via: depositRates
+- from: BankingProductDetail
+  to: BankingProductLendingRateV3
+  type: has_many
+  via: lendingRates
+- from: BankingProductFeeV2
+  to: BankingProductDiscountV2
+  type: has_many
+  via: discounts
+- from: BankingProductDiscountV2
+  to: BankingProductDiscountEligibility
+  type: has_many
+  via: eligibility
+- from: BankingProductDepositRateV2
+  to: BankingProductRateTierV4
+  type: has_many
+  via: tiers
+- from: BankingProductLendingRateV3
+  to: BankingProductRateTierV4
+  type: has_many
+  via: tiers
+- from: BankingProductRateTierV4
+  to: BankingProductRateConditionV2
+  type: has_one
+  via: rateCondition

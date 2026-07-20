@@ -1,0 +1,12 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/hsbc-australia-cds-banking-products-openapi.yml + conventions/hsbc-australia-conventions.yml
+skills:
+- file: hsbc-australia-browse-products.md
+  name: Browse HSBC Australia banking products
+  api: openapi/hsbc-australia-cds-banking-products-openapi.yml
+  operations: [listBankingProducts]
+- file: hsbc-australia-product-detail.md
+  name: Get HSBC Australia product detail
+  api: openapi/hsbc-australia-cds-banking-products-openapi.yml
+  operations: [listBankingProducts, getBankingProductDetail]

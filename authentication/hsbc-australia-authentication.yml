@@ -1,0 +1,55 @@
+generated: '2026-07-20'
+method: searched
+source: https://public.ob.hsbc.com.au/.well-known/openid-configuration
+docs: https://www.hsbc.com.au/help/open-banking/
+summary:
+  types: [none, openIdConnect, oauth2, mutualTLS]
+  public_surface: unauthenticated
+  authenticated_surface: CDR security profile (FAPI)
+  oauth2_flows: [authorizationCode, clientCredentials]
+note: |
+  HSBC Australia exposes two auth models. (1) The public Product Reference
+  Data endpoints (GET /banking/products and /banking/products/{productId})
+  are UNAUTHENTICATED by CDR design - product data contains no consumer data.
+  (2) The consumer data sharing surface (accounts, balances, transactions,
+  payees) is gated by the CDR security profile, an OpenID Connect / OAuth2
+  FAPI flow restricted to Accredited Data Recipients (ADRs). The FAPI details
+  below are read live from the OpenID Connect discovery document.
+schemes:
+- name: public-product-reference-data
+  type: none
+  description: Public unauthenticated CDR Product Reference Data. Requires only
+    the x-v version header; no credentials.
+  sources: [openapi/hsbc-australia-cds-banking-products-openapi.yml]
+- name: cdr-openid-connect
+  type: openIdConnect
+  openIdConnectUrl: https://public.ob.hsbc.com.au/.well-known/openid-configuration
+  description: CDR consumer data sharing, ADR-only.
+  fapi:
+    pushed_authorization_requests: required
+    tls_client_certificate_bound_access_tokens: true
+    token_endpoint_auth_methods: [private_key_jwt]
+    id_token_signing_alg: [ES256, PS256]
+    request_object_signing_alg: [ES256, PS256]
+    authorization_signed_response_alg: [PS256, ES256]
+    code_challenge_methods: [S256]
+    acr_values: ['urn:cds.au:cdr:2', 'urn:cds.au:cdr:3']
+    response_types: [code]
+    response_modes: [jwt]
+  endpoints:
+    authorization: https://public.ob.hsbc.com.au/cds-au/v1/oauth2/authorize
+    token: https://mtls.ob.hsbc.com.au/cds-au/v1/oauth2/token
+    par: https://mtls.ob.hsbc.com.au/cds-au/v1/oauth2/par
+    introspection: https://mtls.ob.hsbc.com.au/cds-au/v1/oauth2/introspect
+    revocation: https://mtls.ob.hsbc.com.au/cds-au/v1/oauth2/revoke
+    userinfo: https://mtls.ob.hsbc.com.au/cds-au/v1/oauth2/userinfo
+    registration: https://mtls.ob.hsbc.com.au/cds-au/v1/oauth2/register
+    jwks: https://public.ob.hsbc.com.au/jwks/public.jwks
+    cdr_arrangement_revocation: https://mtls.ob.hsbc.com.au/cds-au/v1/oauth2/arrangements/revoke
+  sources: [well-known/hsbc-australia-openid-configuration.json]
+- name: cdr-mtls
+  type: mutualTLS
+  description: Mutual TLS is required for token, introspection, registration and
+    consumer-data endpoints on the mtls.ob.hsbc.com.au host; access tokens are
+    certificate-bound.
+  sources: [well-known/hsbc-australia-openid-configuration.json]

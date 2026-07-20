@@ -1,0 +1,35 @@
+# HSBC Bank Australia
+
+> HSBC Bank Australia is a designated Consumer Data Right (CDR / Open Banking) data holder. Its only public API surface is the unauthenticated CDR Product Reference Data (PRD) API, which exposes HSBC Australia's banking products — home loans, deposit accounts, credit cards, and term deposits — as structured data conforming to the DSB Consumer Data Standards. The authenticated consumer data sharing surface is restricted to Accredited Data Recipients under the CDR security (FAPI) profile.
+
+## APIs
+
+- [CDR Product Reference Data API](https://www.hsbc.com.au/help/open-banking/): Public, unauthenticated Get Products and Get Product Detail. Base URL https://public.ob.hsbc.com.au/cds-au/v1. Requires the x-v version header (supports 4 and 5).
+
+## Specs
+
+- [OpenAPI (CDS Banking, shared standard)](openapi/hsbc-australia-cds-banking-products-openapi.yml): DSB Consumer Data Standards CDR Banking API v1.36.0; HSBC implements the Products subset.
+- [OpenAPI Overlay (AE enhancements)](overlays/hsbc-australia-cds-banking-products-overlay.yaml)
+- [OpenID Connect discovery (CDR FAPI)](well-known/hsbc-australia-openid-configuration.json)
+
+## Artifacts
+
+- [Authentication profile](authentication/hsbc-australia-authentication.yml): public=none; consumer surface = CDR FAPI (OIDC + mTLS, ADR-only).
+- [OAuth scopes](scopes/hsbc-australia-scopes.yml): CDR banking scopes from the OIDC discovery document.
+- [API conventions](conventions/hsbc-australia-conventions.yml): x-v versioning, page/page-size pagination, CDS error envelope.
+- [Error catalog](errors/hsbc-australia-problem-types.yml): au-cds URN error codes.
+- [Lifecycle](lifecycle/hsbc-australia-lifecycle.yml): x-v version negotiation.
+- [Conformance](conformance/hsbc-australia-conformance.yml): CDR, CDS Banking, OIDC, OAuth2, FAPI.
+- [Data model](data-model/hsbc-australia-data-model.yml): products entity graph.
+- [MCP server (candidate)](mcp/hsbc-australia-mcp.yml)
+- [Agent skills](skills/_index.yml)
+- [Well-known index](well-known/hsbc-australia-well-known.yml)
+- [Domain security](security/hsbc-australia-domain-security.yml)
+
+## Docs
+
+- [Open Banking help](https://www.hsbc.com.au/help/open-banking/)
+- [Open Banking FAQ](https://www.hsbc.com.au/help/open-banking/faq/)
+- [Consumer Data Right Policy](https://www.hsbc.com.au/legal/consumer-data-right-policy/)
+- [Privacy](https://www.hsbc.com.au/privacy/)
+- Developer/ADR support: openbankingsupport@hsbc.com

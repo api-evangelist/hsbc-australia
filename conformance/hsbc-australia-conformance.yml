@@ -1,0 +1,36 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/hsbc-australia-cds-banking-products-openapi.yml + https://public.ob.hsbc.com.au/.well-known/openid-configuration
+standards:
+- id: cdr-consumer-data-standards-au
+  conforms: true
+  evidence: Implements the DSB Consumer Data Standards CDR Banking API; public
+    Product Reference Data endpoints live at /cds-au/v1/banking/products (x-v 5).
+- id: cdr-banking-products-api
+  conforms: true
+  evidence: Get Products and Get Product Detail confirmed live (HTTP 200, x-v 5).
+- id: openid-connect
+  conforms: true
+  evidence: Valid OpenID Connect discovery document published at
+    /.well-known/openid-configuration.
+- id: oauth2
+  conforms: true
+  evidence: authorization_code and client_credentials grant types advertised in
+    discovery document.
+- id: fapi
+  conforms: true
+  evidence: CDR security profile - PAR required (require_pushed_authorization_requests),
+    mTLS-bound tokens (tls_client_certificate_bound_access_tokens), private_key_jwt,
+    JARM (response_modes jwt, PS256/ES256 signed responses), PKCE S256.
+- id: cds-version-negotiation
+  conforms: true
+  evidence: x-v request header required; unsupported versions return HTTP 406
+    urn:au-cds:error:cds-all:Header/UnsupportedVersion (confirmed live with x-v 3).
+- id: cds-pagination
+  conforms: true
+  evidence: Standard CDS pagination (page + page-size, default 25) on the Products
+    list endpoint.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Uses the CDS-specific ResponseErrorListV2 error envelope with au-cds
+    URN error codes, not application/problem+json.

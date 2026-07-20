@@ -1,0 +1,34 @@
+generated: '2026-07-20'
+method: searched
+source: https://www.hsbc.com.au/help/open-banking/ + openapi/hsbc-australia-cds-banking-products-openapi.yml
+versioning:
+  scheme: header
+  header: x-v
+  min_header: x-min-v
+  response_header: x-v
+  current:
+    get_products: '5'
+    get_product_detail: '5'
+  supported_products_endpoint: ['4', '5']
+  negotiation: |
+    Clients send x-v (required) and optionally x-min-v; the endpoint responds
+    with the highest supported version in range and echoes it in the x-v
+    response header. Unsupported versions return HTTP 406
+    urn:au-cds:error:cds-all:Header/UnsupportedVersion (confirmed live: x-v 3
+    rejected, x-v 4 and 5 return 200).
+  docs: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: |
+    HSBC publishes no bank-specific deprecation policy or Sunset/Deprecation
+    headers. API version obsolescence is governed by the DSB Consumer Data
+    Standards release cycle (obsolete product-detail versions v1-v6 are noted
+    in the shared standard), not by an HSBC deprecation contract.
+sla:
+  url: null
+  uptime_target: null
+  note: No published SLA or uptime target for the public PRD surface.
+status_page: null
+support: openbankingsupport@hsbc.com
+deprecated_operations: []

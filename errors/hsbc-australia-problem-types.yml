@@ -1,0 +1,56 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/hsbc-australia-cds-banking-products-openapi.yml (4xx responses on the Products endpoints)
+format: cds-au-error
+envelope:
+  schema: ResponseErrorListV2
+  shape: '{ errors: [ { code, title, detail, meta } ] }'
+  note: |
+    HSBC Australia returns the DSB Consumer Data Standards error envelope
+    (ResponseErrorListV2), not RFC 9457 problem+json. Each error carries an
+    au-cds URN code, a human title, and detail. URN codes follow
+    urn:au-cds:error:<sub-type>:<Category>/<Code>.
+problems:
+- status: 400
+  code: urn:au-cds:error:cds-all:Field/Invalid
+  title: Invalid Field
+  source_operation: openapi/hsbc-australia-cds-banking-products-openapi.yml#listBankingProducts
+- status: 400
+  code: urn:au-cds:error:cds-all:Field/Missing
+  title: Missing Required Field
+  source_operation: openapi/hsbc-australia-cds-banking-products-openapi.yml#listBankingProducts
+- status: 400
+  code: urn:au-cds:error:cds-all:Header/Missing
+  title: Missing Required Header
+  source_operation: openapi/hsbc-australia-cds-banking-products-openapi.yml#listBankingProducts
+- status: 400
+  code: urn:au-cds:error:cds-all:Header/InvalidVersion
+  title: Invalid Version
+  source_operation: openapi/hsbc-australia-cds-banking-products-openapi.yml#listBankingProducts
+- status: 400
+  code: urn:au-cds:error:cds-all:Field/InvalidDateTime
+  title: Invalid Date
+  source_operation: openapi/hsbc-australia-cds-banking-products-openapi.yml#listBankingProducts
+- status: 400
+  code: urn:au-cds:error:cds-all:Field/InvalidPageSize
+  title: Invalid Page Size
+  source_operation: openapi/hsbc-australia-cds-banking-products-openapi.yml#listBankingProducts
+- status: 406
+  code: urn:au-cds:error:cds-all:Header/UnsupportedVersion
+  title: Unsupported Version
+  remediation: Request a supported version via x-v (HSBC Products supports x-v 4 and 5).
+  confirmed_live: true
+  source_operation: openapi/hsbc-australia-cds-banking-products-openapi.yml#listBankingProducts
+- status: 422
+  code: urn:au-cds:error:cds-all:Field/InvalidPage
+  title: Invalid Page
+  source_operation: openapi/hsbc-australia-cds-banking-products-openapi.yml#listBankingProducts
+- status: 404
+  code: urn:au-cds:error:cds-all:Resource/NotFound
+  title: Resource Not Found
+  detail: Returned by Get Product Detail when the productId does not exist.
+  source_operation: openapi/hsbc-australia-cds-banking-products-openapi.yml#getBankingProductDetail
+- status: 400
+  code: urn:au-cds:error:cds-all:Resource/Invalid
+  title: Invalid Resource
+  source_operation: openapi/hsbc-australia-cds-banking-products-openapi.yml#getBankingProductDetail

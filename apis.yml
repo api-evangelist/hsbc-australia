@@ -44,6 +44,8 @@ apis:
     type: APIReference
   - url: openapi/hsbc-australia-cds-banking-products-openapi.yml
     type: OpenAPI
+  - url: overlays/hsbc-australia-cds-banking-products-overlay.yaml
+    type: Overlay
   description: Public, unauthenticated Consumer Data Right Product Reference Data (PRD)
     API. Confirmed live (HTTP 200, x-v 5) at https://public.ob.hsbc.com.au/cds-au/v1/banking/products
     returning a data.products array of HSBC Australia banking products - home loans,
@@ -51,18 +53,48 @@ apis:
     and eligibility. Conforms to the DSB Consumer Data Standards (CDR Banking API);
     Get Products and Get Product Detail ({productId}) endpoints require no authentication.
 common:
+- type: DomainSecurity
+  url: security/hsbc-australia-domain-security.yml
 - type: Website
   url: https://www.hsbc.com.au/
 - type: Documentation
   url: https://www.hsbc.com.au/help/open-banking/
+- type: GettingStarted
+  url: https://www.hsbc.com.au/help/open-banking/faq/
 - type: PrivacyPolicy
   url: https://www.hsbc.com.au/privacy/
+- type: TermsOfService
+  url: https://www.hsbc.com.au/legal/consumer-data-right-policy/
 - type: GitHubOrganization
   url: https://github.com/hsbc
 - type: LinkedIn
   url: https://www.linkedin.com/company/hsbc
 - type: Support
   url: mailto:openbankingsupport@hsbc.com
+- type: WellKnown
+  url: well-known/hsbc-australia-well-known.yml
+- type: OpenIDConnect
+  url: well-known/hsbc-australia-openid-configuration.json
+- type: Authentication
+  url: authentication/hsbc-australia-authentication.yml
+- type: OAuthScopes
+  url: scopes/hsbc-australia-scopes.yml
+- type: Conformance
+  url: conformance/hsbc-australia-conformance.yml
+- type: ErrorCatalog
+  url: errors/hsbc-australia-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/hsbc-australia-lifecycle.yml
+- type: Conventions
+  url: conventions/hsbc-australia-conventions.yml
+- type: MCPServer
+  url: mcp/hsbc-australia-mcp.yml
+- type: LLMsTxt
+  url: llms/hsbc-australia-llms.txt
+- type: DataModel
+  url: data-model/hsbc-australia-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
