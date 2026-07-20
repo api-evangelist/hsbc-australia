@@ -1,0 +1,86 @@
+aid: hsbc-australia
+name: HSBC Bank Australia
+review:
+  question: Does HSBC Bank Australia expose a confirmed live, public CDR Product Reference Data API, and does it run a broader proprietary developer portal?
+  answer: true
+  date: '2026-07-20'
+  reviewer: API Evangelist
+  cdrPrdConfirmed: true
+  developerPortalFound: false
+  specProvenance: DSB Consumer Data Standards (shared CDR Banking API standard) - not an HSBC-proprietary contract
+findings:
+  summary: |
+    HSBC Bank Australia's only documented public API surface is its Consumer
+    Data Right (CDR / Open Banking) Product Reference Data (PRD) API. The
+    endpoint at https://public.ob.hsbc.com.au/cds-au/v1/banking/products was
+    confirmed LIVE, returning HTTP 200 with an x-v: 5 response header and a
+    JSON body containing a data.products array of real HSBC Australia banking
+    products (e.g. "Standard Variable - Reference Rate" residential mortgage).
+    The endpoint is unauthenticated, as required for CDR product data, and
+    enforces version negotiation via the x-v request header: supported
+    versions include 4 and 5 (a request with x-v: 3 returns HTTP 406
+    urn:au-cds:error:cds-all:Header/UnsupportedVersion). A second public
+    endpoint, Get Product Detail (/cds-au/v1/banking/products/{productId}),
+    is documented on HSBC's Open Banking help page. No standalone,
+    self-service developer portal (no developer.hsbc.com.au, no Up-style
+    personal-banking API, no API console) was found for HSBC Australia;
+    developer/ADR support is handled via a support form and the email
+    openbankingsupport@hsbc.com. HSBC is a CDR data holder only and states it
+    is not accredited to receive third-party banking data.
+  authModel: |
+    The public PRD (product reference data) surface is unauthenticated by
+    CDR design - product data contains no consumer data. The broader
+    consumer data sharing surface (accounts, balances, transactions) is
+    NOT public: it is gated by the CDR security profile, an OpenID Connect /
+    OAuth2 FAPI-based flow restricted to Accredited Data Recipients (ADRs)
+    operating under the CDR ecosystem and register. That authenticated
+    surface is out of scope for public harvest and is not listed here.
+  specProvenanceNote: |
+    The harvested OpenAPI at
+    openapi/hsbc-australia-cds-banking-products-openapi.yml is the SHARED
+    Data Standards Body (DSB) Consumer Data Standards "CDR Banking API"
+    contract (OpenAPI 3.0.3, info.version 1.36.0), fetched verbatim from
+    consumerdatastandardsaustralia.github.io. It is NOT an HSBC-proprietary
+    specification; HSBC's PRD endpoints implement the Products subset of this
+    standard (GET /banking/products and GET /banking/products/{productId}).
+    HSBC does not publish its own bank-specific OpenAPI document.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://public.ob.hsbc.com.au/cds-au/v1
+      documented: true
+      note: Public unauthenticated CDR Product Reference Data. Confirmed HTTP 200 with x-v response header 5.
+    - protocol: REST
+      scheme: https
+      note: Authenticated CDR consumer data sharing (accounts/balances/transactions) via OAuth2/OIDC FAPI, restricted to Accredited Data Recipients. Not public, not harvested.
+      documented: true
+  endpointsConfirmedPublic:
+    - GET https://public.ob.hsbc.com.au/cds-au/v1/banking/products
+    - GET https://public.ob.hsbc.com.au/cds-au/v1/banking/products/{productId}
+  liveProbe:
+    url: https://public.ob.hsbc.com.au/cds-au/v1/banking/products
+    httpStatus: 200
+    xvHeader: '5'
+    bodyShape: data.products[] present (real HSBC AU products returned)
+    note: 'x-v: 3 rejected with HTTP 406 UnsupportedVersion; x-v: 4 and x-v: 5 both return 200.'
+sources:
+  - url: https://www.hsbc.com.au/help/open-banking/
+    type: Documentation
+    note: HSBC AU Open Banking help page; documents Get Product and Get Product Detail public endpoints and openbankingsupport@hsbc.com contact.
+  - url: https://www.hsbc.com.au/legal/consumer-data-right-policy/
+    type: Documentation
+    note: HSBC Australia Consumer Data Right Policy.
+  - url: https://public.ob.hsbc.com.au/cds-au/v1/banking/products
+    type: APIReference
+    note: Live public PRD endpoint; confirmed HTTP 200 with x-v response header.
+  - url: https://consumerdatastandardsaustralia.github.io/standards/includes/swagger/cds_banking.json
+    type: OpenAPI
+    note: Source of harvested DSB CDS Banking OpenAPI (shared standard), converted verbatim to YAML.
+actions:
+  openapiPath: openapi/hsbc-australia-cds-banking-products-openapi.yml
+  apisYmlUpdated: true
+  reason: |
+    Bootstrap of HSBC Bank Australia identity plus real public API harvest.
+    The CDR PRD endpoint was confirmed live and listed; the shared DSB CDS
+    Banking OpenAPI was harvested verbatim and clearly attributed as the
+    standard (not proprietary). No developer portal exists to catalog.
