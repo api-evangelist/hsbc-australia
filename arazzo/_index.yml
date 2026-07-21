@@ -1,0 +1,11 @@
+generated: '2026-07-21'
+method: derived
+source: arazzo/*.yml
+workflows:
+- file: hsbc-australia-browse-products.yml
+  workflowId: browse-products-and-get-detail
+  title: Browse Products and Get Detail
+  summary: >-
+    List HSBC Australia's public CDR banking products, then fetch full detail for
+    the first product. Public, unauthenticated, requires only the CDR x-v header.
+  operations: [listBankingProducts, getBankingProductDetail]

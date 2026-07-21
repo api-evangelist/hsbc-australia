@@ -231,6 +231,11 @@ common:
   url: data-model/hsbc-australia-data-model.yml
 - type: AgentSkill
   url: skills/_index.yml
+- type: Arazzo
+  name: Browse Products and Get Detail
+  url: arazzo/hsbc-australia-browse-products.yml
+- type: AgenticAccess
+  url: agentic-access/hsbc-australia-agentic-access.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
