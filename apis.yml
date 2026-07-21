@@ -9,9 +9,15 @@ description: HSBC Bank Australia Limited is the Australian banking subsidiary of
   credit cards, term deposits, and business and international banking across Australia.
   As a designated data holder under Australia's Consumer Data Right (CDR / Open Banking),
   HSBC Australia exposes a public, unauthenticated Product Reference Data (PRD) API
-  conforming to the DSB Consumer Data Standards, alongside the authenticated consumer
-  data sharing surface reserved for Accredited Data Recipients. HSBC is presently a
-  data holder only and is not accredited to receive third-party banking data.
+  plus the full authenticated CDR Banking surface - accounts, balances, transactions,
+  direct debits, scheduled payments, and payees - conforming to the DSB Consumer Data
+  Standards CDR Banking API (v1.36.0). The public product endpoints are on
+  https://public.ob.hsbc.com.au/cds-au/v1 and the consumer-authorized endpoints on
+  the MTLS host https://mtls.ob.hsbc.com.au/cds-au/v1, accessible only to Accredited
+  Data Recipients under the CDR ADR model. HSBC is presently a data holder only and
+  is not accredited to receive third-party banking data. Beyond the Australian CDR
+  surface, HSBC Group operates a global developer portal at develop.hsbc.com covering
+  commercial/corporate banking APIs and non-Australian Open Banking markets.
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Financial
@@ -23,7 +29,7 @@ tags:
 - Australia
 - Product Reference Data
 created: '2026-07-20'
-modified: '2026-07-20'
+modified: '2026-07-21'
 specificationVersion: '0.19'
 apis:
 - aid: hsbc-australia:hsbc-australia-cdr-product-reference-data-api
@@ -36,7 +42,7 @@ apis:
   - Public
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://www.hsbc.com.au/help/open-banking/
-  baseURL: https://public.ob.hsbc.com.au/cds-au/v1
+  baseURL: https://public.ob.hsbc.com.au/cds-au/v1/banking/products
   properties:
   - url: https://www.hsbc.com.au/help/open-banking/
     type: Documentation
@@ -50,13 +56,143 @@ apis:
     API. Confirmed live (HTTP 200, x-v 5) at https://public.ob.hsbc.com.au/cds-au/v1/banking/products
     returning a data.products array of HSBC Australia banking products - home loans,
     deposit accounts, credit cards, and term deposits - with rates, fees, features,
-    and eligibility. Conforms to the DSB Consumer Data Standards (CDR Banking API);
+    and eligibility. Conforms to the DSB Consumer Data Standards CDR Banking API; the
     Get Products and Get Product Detail ({productId}) endpoints require no authentication.
+- aid: hsbc-australia:hsbc-australia-cdr-accounts-balances-api
+  name: HSBC Bank Australia CDR Accounts & Balances API
+  tags:
+  - CDR
+  - Open Banking
+  - Accounts
+  - Balances
+  - Banking
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.hsbc.com.au/help/open-banking/
+  baseURL: https://mtls.ob.hsbc.com.au/cds-au/v1/banking/accounts
+  properties:
+  - url: https://www.hsbc.com.au/help/open-banking/
+    type: Documentation
+  - url: openapi/hsbc-australia-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-authorized Consumer Data Right accounts surface of the DSB
+    CDR Banking API (v1.36.0). Covers Get Accounts (/banking/accounts), Get Bulk
+    Balances (/banking/accounts/balances), Get Account Balance
+    (/banking/accounts/{accountId}/balance), and Get Account Detail
+    (/banking/accounts/{accountId}). These endpoints are served from HSBC's MTLS host
+    https://mtls.ob.hsbc.com.au/cds-au/v1 and are accessible only to Accredited Data
+    Recipients acting on a consumer's authorization under the CDR ADR model (OAuth2 /
+    OIDC, private_key_jwt, PAR, MTLS-bound tokens per HSBC's OpenID configuration).
+    Not publicly callable; the standardized shape is documented in the shared DSB spec.
+- aid: hsbc-australia:hsbc-australia-cdr-transactions-api
+  name: HSBC Bank Australia CDR Transactions API
+  tags:
+  - CDR
+  - Open Banking
+  - Transactions
+  - Banking
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.hsbc.com.au/help/open-banking/
+  baseURL: https://mtls.ob.hsbc.com.au/cds-au/v1/banking/accounts/{accountId}/transactions
+  properties:
+  - url: https://www.hsbc.com.au/help/open-banking/
+    type: Documentation
+  - url: openapi/hsbc-australia-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-authorized Consumer Data Right transactions surface of the
+    DSB CDR Banking API (v1.36.0). Covers Get Transactions For Account
+    (/banking/accounts/{accountId}/transactions) and Get Transaction Detail
+    (/banking/accounts/{accountId}/transactions/{transactionId}). Served from HSBC's
+    MTLS host https://mtls.ob.hsbc.com.au/cds-au/v1 and accessible only to Accredited
+    Data Recipients acting on a consumer's authorization under the CDR ADR model. Not
+    publicly callable; the standardized request/response shape is documented in the
+    shared DSB Consumer Data Standards spec bundled in this repo.
+- aid: hsbc-australia:hsbc-australia-cdr-direct-debits-scheduled-payments-api
+  name: HSBC Bank Australia CDR Direct Debits & Scheduled Payments API
+  tags:
+  - CDR
+  - Open Banking
+  - Direct Debits
+  - Scheduled Payments
+  - Banking
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.hsbc.com.au/help/open-banking/
+  baseURL: https://mtls.ob.hsbc.com.au/cds-au/v1/banking/accounts/direct-debits
+  properties:
+  - url: https://www.hsbc.com.au/help/open-banking/
+    type: Documentation
+  - url: openapi/hsbc-australia-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-authorized Consumer Data Right regular-payments surface of the
+    DSB CDR Banking API (v1.36.0). Covers Get Direct Debits For Account
+    (/banking/accounts/{accountId}/direct-debits), Get Bulk Direct Debits
+    (/banking/accounts/direct-debits), Get Scheduled Payments For Account
+    (/banking/accounts/{accountId}/payments/scheduled), and Get Bulk Scheduled
+    Payments (/banking/payments/scheduled). Served from HSBC's MTLS host
+    https://mtls.ob.hsbc.com.au/cds-au/v1 and accessible only to Accredited Data
+    Recipients acting on a consumer's authorization under the CDR ADR model. Not
+    publicly callable; standardized shape documented in the shared DSB spec.
+- aid: hsbc-australia:hsbc-australia-cdr-payees-api
+  name: HSBC Bank Australia CDR Payees API
+  tags:
+  - CDR
+  - Open Banking
+  - Payees
+  - Banking
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.hsbc.com.au/help/open-banking/
+  baseURL: https://mtls.ob.hsbc.com.au/cds-au/v1/banking/payees
+  properties:
+  - url: https://www.hsbc.com.au/help/open-banking/
+    type: Documentation
+  - url: openapi/hsbc-australia-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Consumer-authorized Consumer Data Right payees surface of the DSB CDR
+    Banking API (v1.36.0). Covers Get Payees (/banking/payees) and Get Payee Detail
+    (/banking/payees/{payeeId}). Served from HSBC's MTLS host
+    https://mtls.ob.hsbc.com.au/cds-au/v1 and accessible only to Accredited Data
+    Recipients acting on a consumer's authorization under the CDR ADR model. Not
+    publicly callable; the standardized shape is documented in the shared DSB
+    Consumer Data Standards spec bundled in this repo.
+- aid: hsbc-australia:hsbc-developer-portal-commercial-apis
+  name: HSBC Developer Portal - Commercial APIs (HSBC Group, partner-gated)
+  tags:
+  - Commercial Banking
+  - Corporate Banking
+  - Developer Portal
+  - Partner Gated
+  - HSBC Group
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://develop.hsbc.com/apis
+  baseURL: https://develop.hsbc.com/apis
+  properties:
+  - url: https://develop.hsbc.com/
+    type: DeveloperPortal
+  - url: https://develop.hsbc.com/apis
+    type: APIReference
+  - url: https://develop.hsbc.com/knowledge-article/get-started-open-banking-apis
+    type: GettingStarted
+  description: HSBC Group's global developer portal (develop.hsbc.com) documents
+    commercial / corporate-banking APIs available to HSBC's business and corporate
+    clients, alongside Open Banking APIs for non-Australian markets (UK, Hong Kong,
+    Europe, Mexico). This is a group-level, registration-gated portal - not an
+    Australia-specific developer program - and the commercial API catalogue is
+    partner-gated with no public downloadable OpenAPI/Swagger; sandbox and technical
+    documentation require account registration. Listed here for completeness because
+    HSBC Bank Australia's business/corporate customers are served by HSBC Group
+    connectivity; HSBC Australia's own regulated, publicly documented API surface is
+    the Consumer Data Right family above, not this portal. No public spec harvested
+    (partner-gated).
 common:
 - type: DomainSecurity
   url: security/hsbc-australia-domain-security.yml
 - type: Website
   url: https://www.hsbc.com.au/
+- type: DeveloperPortal
+  url: https://develop.hsbc.com/
 - type: Documentation
   url: https://www.hsbc.com.au/help/open-banking/
 - type: GettingStarted
