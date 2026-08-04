@@ -1,0 +1,26 @@
+{
+  "provider": "hsbc-australia",
+  "sources": [
+    "hsbc-australia-banking-account-balances-api-openapi.yml",
+    "hsbc-australia-banking-account-direct-debits-api-openapi.yml",
+    "hsbc-australia-banking-account-scheduled-payments-api-openapi.yml",
+    "hsbc-australia-banking-account-transactions-api-openapi.yml",
+    "hsbc-australia-banking-accounts-api-openapi.yml",
+    "hsbc-australia-banking-payees-api-openapi.yml",
+    "hsbc-australia-banking-products-api-openapi.yml"
+  ],
+  "outputs": [
+    "hsbc-australia-banking-account-balances-api-openapi.yml",
+    "hsbc-australia-banking-account-direct-debits-api-openapi.yml",
+    "hsbc-australia-banking-account-scheduled-payments-api-openapi.yml",
+    "hsbc-australia-banking-account-transactions-api-openapi.yml",
+    "hsbc-australia-banking-accounts-api-openapi.yml",
+    "hsbc-australia-banking-payees-api-openapi.yml",
+    "hsbc-australia-banking-products-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
