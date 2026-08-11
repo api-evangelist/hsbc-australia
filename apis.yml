@@ -170,6 +170,8 @@ apis:
   - type: APIReference
     url: https://public.ob.hsbc.com.au/cds-au/v1/banking/products
 common:
+- type: Overlay
+  url: overlays/hsbc-australia-cds-banking-products-overlay.yaml
 - type: DomainSecurity
   url: security/hsbc-australia-domain-security.yml
 - type: Website
