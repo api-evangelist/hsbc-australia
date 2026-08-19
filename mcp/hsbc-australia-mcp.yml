@@ -2,22 +2,32 @@ generated: '2026-07-20'
 method: derived
 status: candidate
 source: openapi/hsbc-australia-cds-banking-products-openapi.yml
-note: |
-  No official HSBC Australia MCP server was found. This is a CANDIDATE tool
+note: 'No official HSBC Australia MCP server was found. This is a CANDIDATE tool
+
   list derived from the two live, public, unauthenticated CDR Product Reference
+
   Data operations HSBC implements. Both are read-only and require no credentials
+
   (only the x-v version header).
+
+  '
 server:
   name: hsbc-australia-products
   transport: http
   url: null
 tools:
 - name: list_banking_products
-  description: List HSBC Australia banking products openly offered to the market
-    (home loans, deposit accounts, credit cards, term deposits), with optional
-    effective/updated-since filters and page/page-size pagination.
+  description: List HSBC Australia banking products openly offered to the market (home loans, deposit
+    accounts, credit cards, term deposits), with optional effective/updated-since filters and page/page-size
+    pagination.
   source_operation: openapi/hsbc-australia-cds-banking-products-openapi.yml#listBankingProducts
 - name: get_banking_product_detail
-  description: Get detailed information for a single HSBC Australia product by
-    productId - rates, fees, features, constraints, and eligibility.
+  description: Get detailed information for a single HSBC Australia product by productId - rates, fees,
+    features, constraints, and eligibility.
   source_operation: openapi/hsbc-australia-cds-banking-products-openapi.yml#getBankingProductDetail
+deployment:
+  mode: none
+  verified: derived
+  tools: 2
+  checked: '2026-08-12'
+  source: catalog MCP census
