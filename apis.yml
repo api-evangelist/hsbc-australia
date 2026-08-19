@@ -42,7 +42,7 @@ tags:
 - Product Reference Data
 created: '2026-07-20'
 modified: '2026-07-21'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: hsbc-australia:hsbc-developer-portal-commercial-apis
   name: HSBC Developer Portal - Commercial APIs (HSBC Group, partner-gated)
