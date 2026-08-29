@@ -9,8 +9,8 @@ info:
     (https://public.ob.hsbc.com.au/cds-au/v1); the only requirement is the CDR
     version header x-v. Forkable and runnable in production as-is.
 sourceDescriptions:
-- name: cdsBanking
-  url: ../openapi/hsbc-australia-cds-banking-products-openapi.yml
+- name: bankingProductsApi
+  url: ../openapi/hsbc-australia-banking-products-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: browse-products-and-get-detail
