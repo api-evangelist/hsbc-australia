@@ -182,6 +182,9 @@ apis:
   - type: APIReference
     url: https://public.ob.hsbc.com.au/cds-au/v1/banking/products
 common:
+- type: CapabilityMap
+  url: capabilities/hsbc-australia-capability-edges.yml
+  name: HSBC Bank Australia Business Capability Map
 - type: Overlay
   url: overlays/hsbc-australia-cds-banking-products-overlay.yaml
 - type: DomainSecurity
