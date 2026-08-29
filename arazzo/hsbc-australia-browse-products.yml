@@ -8,6 +8,17 @@ info:
     operations are public and unauthenticated on the CDR public host
     (https://public.ob.hsbc.com.au/cds-au/v1); the only requirement is the CDR
     version header x-v. Forkable and runnable in production as-is.
+  x-realizes-capability-ids:
+  - BC-1310.10
+  x-capability-derivation:
+    method: 'deterministic join: sourceDescriptions -> per-tag OpenAPI -> tag/capability edge. No classification at this step.'
+    min_confidence: 0.7
+    sources:
+    - capability_id: BC-1310.10
+      capability_name: Product Catalogue Management
+      spec: hsbc-australia-banking-products-api-openapi.yml
+      confidence: 0.9
+    model: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities, CC BY 4.0
 sourceDescriptions:
 - name: bankingProductsApi
   url: ../openapi/hsbc-australia-banking-products-api-openapi.yml
