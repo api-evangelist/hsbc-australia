@@ -18,6 +18,18 @@ description: HSBC Bank Australia Limited is the Australian banking subsidiary of
   is not accredited to receive third-party banking data. Beyond the Australian CDR
   surface, HSBC Group operates a global developer portal at develop.hsbc.com covering
   commercial/corporate banking APIs and non-Australian Open Banking markets.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
