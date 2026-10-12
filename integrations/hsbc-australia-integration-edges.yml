@@ -1,0 +1,53 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/hsbc-australia/integrations
+- https://zapier.com/apps/hsbc-bank-australia/integrations
+- https://n8n.io/integrations/hsbc-australia/
+- https://composio.dev/toolkits/hsbc-australia
+- https://monid.ai/tools/hsbc-australia
+checked:
+- https://api.cdr.gov.au/cdr-register/v1/all/data-holders/brands/summary
+- https://composio.dev/toolkits/hsbc-australia
+- https://monid.ai/tools/hsbc-australia
+- https://n8n.io/integrations/hsbc-australia/
+- https://zapier.com/apps/hsbc-australia/integrations
+- https://zapier.com/apps/hsbc-bank-australia/integrations
+summary: null
+marketplace_apps: []
+edges:
+- partner_name: Consumer Data Right
+  partner: null
+  type: contract
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://api.cdr.gov.au/cdr-register/v1/all/data-holders/brands/summary
+  contract_reference:
+    register: CDR Register (Australia, ACCC)
+    spec_file: null
+    role: data-holder
+    registered_name: HSBC Bank Australia Limited – Wholesale Banking
+    register_id: 94847394-0cfd-ec11-a830-000d3a8830d6
+    matched_domain: hsbc.com.au
+    api_families: null
+    detected_by: sweep-standard-registers.py
+    detected: '2026-10-12'
+- partner_name: Consumer Data Right
+  partner: null
+  type: contract
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://api.cdr.gov.au/cdr-register/v1/all/data-holders/brands/summary
+  contract_reference:
+    register: CDR Register (Australia, ACCC)
+    spec_file: null
+    role: data-holder
+    registered_name: HSBC
+    register_id: ca0ad1c8-c0b3-eb11-a822-000d3a884a20
+    matched_domain: hsbc.com.au
+    api_families: null
+    detected_by: sweep-standard-registers.py
+    detected: '2026-10-12'
+templates: []
